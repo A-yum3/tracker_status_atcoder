@@ -47,6 +47,7 @@ class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tracker Status'),
+        // Shared削除の仮実装
         actions: <Widget>[
           GestureDetector(
             child: Icon(Icons.check),
@@ -61,6 +62,7 @@ class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
+        // TODO: notiffyListenersが行われた時にgetUsersUiも行いたいので、ViewModelに移動する可能性あり
         child: getUsersUi(model.users),
       ),
     );
