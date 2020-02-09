@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const problemsUrl = 'https://kenkoooo.com/atcoder/atcoder-api/v2/user_info';
 
 class StorageService {
-  List<String> _userNameList = ['cowgirl'];
+  List<String> _userNameList = [];
 
   // UIに表示するUser情報を作成
 
@@ -30,6 +30,9 @@ class StorageService {
 
   Future<void> addUserId(String userId, SharedPreferences prefs) async {
     _userNameList = _getUserNameList(prefs);
+    if(_userNameList == null) {
+      _userNameList = [];
+    }
     _userNameList.add(userId);
     await _saveUserNameList(_userNameList, prefs);
   }

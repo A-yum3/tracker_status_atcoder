@@ -31,27 +31,37 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<HomeViewModel>.withoutConsumer(
-    viewModel: HomeViewModel(),
-    onModelReady: (model) => model.initialize(),
-    builder: (context, model, child) => RubberBottomSheet(
-      lowerLayer: BaseHomeScreenWidget(),
-      upperLayer: AddScreen(),
-      animationController: _controller,
-    ));
+        viewModel: HomeViewModel(),
+        onModelReady: (model) => model.initialize(),
+        builder: (context, model, child) => RubberBottomSheet(
+              lowerLayer: BaseHomeScreenWidget(),
+              upperLayer: AddScreen(),
+              animationController: _controller,
+            ));
   }
 }
 
 class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
-
   @override
   Widget build(BuildContext context, HomeViewModel model) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tracker Status'),
+        actions: <Widget>[
+          GestureDetector(
+            child: Icon(Icons.check),
+            onTap: () {
+              model.allDeleteUserId();
+            },
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
-        child:  getUsersUi(model.users),
+        child: getUsersUi(model.users),
       ),
     );
   }

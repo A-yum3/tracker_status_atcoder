@@ -23,10 +23,16 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO: 名前を入れてADDを押してもUIの更新が行われないのを解決する。
   void registerUserName(String inputUserName) async {
-    //TODO: ストレージサービスのリストに名前を追加する機能を追加する。
     final prefs = await SharedPreferences.getInstance();
     await _storageService.addUserId(inputUserName, prefs);
+    notifyListeners();
+  }
+
+  void allDeleteUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     notifyListeners();
   }
 

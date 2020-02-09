@@ -3,6 +3,9 @@ import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
 class AddScreen extends ProviderWidget<HomeViewModel> {
+
+  AddScreen({Key key,}) : super(key: key, listen: false);
+
   static const String id = '/add_screen';
 
   @override
