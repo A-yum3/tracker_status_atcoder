@@ -17,7 +17,9 @@ class StorageService {
       for (var userName in _userNameList) {
         var userData = await _getUserProfile(userName);
 
-        _userProfileStructList.add(User.fromJson(userData));
+        if(userData != null) {
+          _userProfileStructList.add(User.fromJson(userData));
+        }
       }
     }
 
@@ -27,6 +29,7 @@ class StorageService {
   // Userを追加する
 
   Future<void> addUserId(String userId, SharedPreferences prefs) async {
+    _userNameList = _getUserNameList(prefs);
     _userNameList.add(userId);
     await _saveUserNameList(_userNameList, prefs);
   }

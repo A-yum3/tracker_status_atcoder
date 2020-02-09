@@ -14,11 +14,19 @@ class HomeViewModel extends ChangeNotifier {
 
   void initialize() {
     getUserList();
+    print('a');
   }
 
   Future getUserList() async {
     final prefs = await SharedPreferences.getInstance();
     _users = await _storageService.updateUserStorage(prefs);
+    notifyListeners();
+  }
+
+  void registerUserName(String inputUserName) async {
+    //TODO: ストレージサービスのリストに名前を追加する機能を追加する。
+    final prefs = await SharedPreferences.getInstance();
+    await _storageService.addUserId(inputUserName, prefs);
     notifyListeners();
   }
 

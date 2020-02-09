@@ -30,32 +30,28 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return RubberBottomSheet(
+    return ViewModelProvider<HomeViewModel>.withoutConsumer(
+    viewModel: HomeViewModel(),
+    onModelReady: (model) => model.initialize(),
+    builder: (context, model, child) => RubberBottomSheet(
       lowerLayer: BaseHomeScreenWidget(),
       upperLayer: AddScreen(),
       animationController: _controller,
-    );
+    ));
   }
 }
 
-class BaseHomeScreenWidget extends StatelessWidget {
-  const BaseHomeScreenWidget({
-    Key key,
-  }) : super(key: key);
+class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel model) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tracker Status'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
-        child: ViewModelProvider<HomeViewModel>.withConsumer(
-          viewModel: HomeViewModel(),
-          onModelReady: (model) => model.initialize(),
-          builder: (context, model, child) => getUsersUi(model.users),
-        ),
+        child:  getUsersUi(model.users),
       ),
     );
   }
@@ -73,10 +69,3 @@ Widget getUsersUi(List<User> users) => GridView.builder(
         },
       ),
     );
-
-//ViewModelProvider<HomeViewModel>.withConsumer(
-//viewModel: HomeViewModel(),
-//onModelReady: (model) => model.initialize(),
-//builder: (context, model, child) =>
-//
-//getUsersUi(model.users),

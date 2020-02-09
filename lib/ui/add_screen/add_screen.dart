@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'add_viewmodel.dart';
+import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 
-class AddScreen extends StatelessWidget {
+class AddScreen extends ProviderWidget<HomeViewModel> {
   static const String id = '/add_screen';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, HomeViewModel model) {
     String inputUserName = '';
 
     return Material(
@@ -57,15 +57,13 @@ class AddScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              ViewModelProvider<AddViewModel>.withConsumer(
-                  viewModel: AddViewModel(),
-                  builder: (context, model, child) => RaisedButton.icon(
-                        elevation: 16.0,
-                        icon: Icon(Icons.input),
-                        label: Text("Add"),
-                        onPressed: () => model.registerUserName(inputUserName),
-                        color: Colors.blue,
-                      )),
+              RaisedButton.icon(
+                elevation: 16.0,
+                icon: Icon(Icons.input),
+                label: Text("Add"),
+                onPressed: () => model.registerUserName(inputUserName),
+                color: Colors.blue,
+              ),
             ],
           ),
         ),
@@ -73,3 +71,7 @@ class AddScreen extends StatelessWidget {
     );
   }
 }
+
+//ViewModelProvider<HomeViewModel>.withoutConsumer(
+//viewModel: HomeViewModel(),
+//builder: (context, model, child) =>
