@@ -1,41 +1,56 @@
 import 'network_helper.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const problemsUrl = 'https://kenkoooo.com/atcoder/atcoder-api/v2/user_info';
 
 class StorageService {
-  List<String> _userNameList = ['cowgirl', 'gomimap', 'naoi', 'shuG',];
+  List<String> _userNameList = ['cowgirl'];
 
-  Future updateStorage() async {
+  // UIに表示するUser情報を作成
+
+  Future updateUserStorage(SharedPreferences prefs) async {
     List<User> _userProfileStructList = [];
-    for (var userName in _userNameList) {
-      var userData = await getUserProfile(userName);
+    _userNameList = _getUserNameList(prefs);
 
-      _userProfileStructList.add(User.fromJson(userData));
+    if(_userNameList != null) {
+      for (var userName in _userNameList) {
+        var userData = await _getUserProfile(userName);
+
+        _userProfileStructList.add(User.fromJson(userData));
+      }
     }
 
     return _userProfileStructList;
   }
 
-  Future getUserProfile(String userName) async {
+  // Userを追加する
+
+  Future<void> addUserId(String userId, SharedPreferences prefs) async {
+    _userNameList.add(userId);
+    await _saveUserNameList(_userNameList, prefs);
+  }
+
+  // Apiを叩く
+
+  Future _getUserProfile(String userName) async {
     NetworkHelper networkHelper = NetworkHelper('$problemsUrl?user=$userName');
 
     var userData = await networkHelper.getData();
     return userData;
   }
 
-  //TODO: SharedPreferencesを利用して実装する
 
-//  Future<int> getUserNameList() async {
+  // SharedPreferencesのゲッターとセッター
+
+  List<String> _getUserNameList(SharedPreferences prefs) {
+    return prefs.getStringList('my_user_name_list_key');
+  }
+
+  Future<void> _saveUserNameList(List<String> nameList, SharedPreferences prefs) async {
 //    final prefs = await SharedPreferences.getInstance();
-//    return prefs.getStringList('my_user_name_list_key') ?? 0;
-//  }
-//
-//  Future<void> saveUserNameList(List<String> nameList) async {
-//    final prefs = await SharedPreferences.getInstance();
-//    prefs.setStringList('my_user_name_list_key', nameList);
-//  }
+    await prefs.setStringList('my_user_name_list_key', nameList);
+  }
 
 }
 

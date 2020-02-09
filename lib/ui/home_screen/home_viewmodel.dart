@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomeViewModel extends ChangeNotifier {
@@ -16,7 +17,8 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future getUserList() async {
-    _users = await _storageService.updateStorage();
+    final prefs = await SharedPreferences.getInstance();
+    _users = await _storageService.updateUserStorage(prefs);
     notifyListeners();
   }
 
