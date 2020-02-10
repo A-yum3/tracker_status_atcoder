@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:rubber/rubber.dart';
 
-class AddScreen extends ProviderWidget<HomeViewModel> {
-
-  AddScreen({Key key,}) : super(key: key, listen: false);
-
+class AddScreen extends StatefulWidget {
   static const String id = '/add_screen';
 
+  final RubberAnimationController _rubberAnimationController;
+
+  AddScreen(this._rubberAnimationController);
+
   @override
-  Widget build(BuildContext context, HomeViewModel model) {
-    String inputUserName = '';
+  _AddScreenState createState() => _AddScreenState();
+}
+
+class _AddScreenState extends State<AddScreen> {
+
+
+  final TextEditingController _tController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _tController.addListener(_printLatestValue);
+  }
+
+  @override
+  void dispose() {
+    _tController.dispose();
+    super.dispose();
+  }
+
+  _printLatestValue() {
+    print("input: ${_tController.text}");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final vm = Provider.of<HomeViewModel>(context);
 
     return Material(
       child: Container(
@@ -45,10 +73,7 @@ class AddScreen extends ProviderWidget<HomeViewModel> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
-                  onChanged: (value) {
-                    inputUserName = value;
-                    print(inputUserName);
-                  },
+                  controller: _tController,
                   decoration: InputDecoration(
                     hintText: 'Enter User Id',
                     enabledBorder: const OutlineInputBorder(
@@ -60,12 +85,20 @@ class AddScreen extends ProviderWidget<HomeViewModel> {
                   ),
                 ),
               ),
-              RaisedButton.icon(
-                elevation: 16.0,
-                icon: Icon(Icons.input),
-                label: Text("Add"),
-                onPressed: () => model.registerUserName(inputUserName),
-                color: Colors.blue,
+              Consumer<HomeViewModel>(
+                builder: (context, model, child) {
+                  return RaisedButton.icon(
+                    elevation: 16.0,
+                    icon: Icon(Icons.input),
+                    label: Text("Add"),
+                    onPressed: () {
+                      vm.registerUserName(_tController.text);
+                      _tController.clear();
+                      widget._rubberAnimationController.collapse();
+                    },
+                    color: Colors.blue,
+                  );
+                },
               ),
             ],
           ),
@@ -74,7 +107,3 @@ class AddScreen extends ProviderWidget<HomeViewModel> {
     );
   }
 }
-
-//ViewModelProvider<HomeViewModel>.withoutConsumer(
-//viewModel: HomeViewModel(),
-//builder: (context, model, child) =>

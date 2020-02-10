@@ -29,7 +29,7 @@ class StorageService {
   // Userを追加する
 
   Future<void> addUserId(String userId, SharedPreferences prefs) async {
-    _userNameList = _getUserNameList(prefs);
+    _userNameList =  _getUserNameList(prefs);
     if(_userNameList == null) {
       _userNameList = [];
     }
@@ -54,7 +54,6 @@ class StorageService {
   }
 
   Future<void> _saveUserNameList(List<String> nameList, SharedPreferences prefs) async {
-//    final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('my_user_name_list_key', nameList);
   }
 

@@ -20,7 +20,7 @@ class UserListItem extends StatelessWidget {
               child: Text(
                 user.userId,
                 style: TextStyle(
-                  fontSize: 25
+                  fontSize: 25.0,
                 ),
               ),
             ),

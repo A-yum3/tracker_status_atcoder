@@ -12,9 +12,8 @@ class HomeViewModel extends ChangeNotifier {
 
   List<User> get users => _users;
 
-  void initialize() {
+  HomeViewModel() {
     getUserList();
-    print('a');
   }
 
   Future getUserList() async {
@@ -23,17 +22,18 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO: 名前を入れてADDを押してもUIの更新が行われないのを解決する。
-  void registerUserName(String inputUserName) async {
+  Future<void> registerUserName(String inputUserName) async {
     final prefs = await SharedPreferences.getInstance();
     await _storageService.addUserId(inputUserName, prefs);
-    notifyListeners();
+    getUserList();
+    print('register');
   }
 
   void allDeleteUserId() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    notifyListeners();
+    getUserList();
+    print('deleted');
   }
 
 

@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
-  provider_architecture: ^1.0.5
+  provider: ^4.0.3
   flutter_spinkit: ^4.1.1
   http: ^0.12.0+4
   syncfusion_flutter_gauges: ^17.4.46-beta
