@@ -36,6 +36,11 @@ class HomeViewModel extends ChangeNotifier {
     print('deleted');
   }
 
+  // T: Already F: No
+  Future<bool> checkUserIsRegistered(String inputUserName) async {
+    var data = await _storageService.getUserProfile(inputUserName);
+    return data == null ? false : true;
+  }
 
 }
 

@@ -15,7 +15,7 @@ class StorageService {
 
     if(_userNameList != null) {
       for (var userName in _userNameList) {
-        var userData = await _getUserProfile(userName);
+        var userData = await getUserProfile(userName);
 
         if(userData != null) {
           _userProfileStructList.add(User.fromJson(userData));
@@ -39,11 +39,11 @@ class StorageService {
 
   // Apiを叩く
 
-  Future _getUserProfile(String userName) async {
+  Future getUserProfile(String userName) async {
     NetworkHelper networkHelper = NetworkHelper('$problemsUrl?user=$userName');
 
     var userData = await networkHelper.getData();
-    return userData;
+    return userData; // ユーザーが登録されていないときはNullが返る
   }
 
 

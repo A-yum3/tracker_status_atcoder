@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
     _controller = RubberAnimationController(
       duration: Duration(milliseconds: 200),
       lowerBoundValue: AnimationControllerValue(pixel: 35.0),
-      upperBoundValue: AnimationControllerValue(pixel: 500.0),
+      upperBoundValue: AnimationControllerValue(pixel: 420.0),
       vsync: this, // Thanks to the mixin
     );
     super.initState();
