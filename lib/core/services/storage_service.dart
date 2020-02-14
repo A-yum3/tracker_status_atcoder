@@ -9,6 +9,7 @@ class StorageService {
   List<String> _userNameList = [];
 
   // UIに表示するUser情報を作成
+  //TODO: おぎょうぎが非常に悪いので、差分追加だけAPIを叩くようにする。
 
   Future updateUserStorage(SharedPreferences prefs) async {
     List<User> _userProfileStructList = [];
@@ -47,8 +48,10 @@ class StorageService {
     var userData = await atCoderProblemsHelper.getData();
     var tempData = await atCoderProfileHelper.getData();
     print(userName);
-    if(tempData['data'] != null || userData != null) {
+    try {
       userData.addAll(tempData['data']);
+    } catch(e) {
+      print(e);
     }
     print(userData);
     return userData; // ユーザーが登録されていないときはNullが返る

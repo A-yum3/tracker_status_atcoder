@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserDetails extends StatelessWidget {
   static String id = '/user_details';
@@ -10,6 +11,15 @@ class UserDetails extends StatelessWidget {
     User user = ModalRoute.of(context).settings.arguments;
     DateTime formatData = DateTime.parse(user.lastUpdate);
     String formattedData = DateFormat('yyyy-MM-dd').format(formatData);
+
+    _launchURL() async {
+      var url = 'https://atcoder.jp/users/${user.userId}';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -34,10 +44,12 @@ class UserDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              // TODO: AtCoderのサイトを表示する。
-              Icon(
-                Icons.exit_to_app,
-                color: showColorByRate(user.color),
+              GestureDetector(
+                onTap: _launchURL,
+                child: Icon(
+                  Icons.exit_to_app,
+                  color: showColorByRate(user.color),
+                ),
               )
             ],
           ),

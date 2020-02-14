@@ -5,7 +5,6 @@ import 'user_list_item.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-
 class BuildUsersListUi extends StatelessWidget {
   final List<User> users;
   BuildUsersListUi({this.users});
@@ -23,11 +22,33 @@ class BuildUsersListUi extends StatelessWidget {
       itemBuilder: (context, index) => UserListItem(
         user: users[index],
         onTap: () {
-          Navigator.of(context).pushNamed(UserDetails.id, arguments: users[index]);
+          Navigator.of(context)
+              .pushNamed(UserDetails.id, arguments: users[index]);
         },
         onLongTap: () {
-          // TODO: アラートダイアログを表示する
-          vm.removeUserId(users[index].userId);
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('確認'),
+                  content: Text('${users[index].userId}を削除しますか？'),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        vm.removeUserId(users[index].userId);
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                );
+              });
         },
       ),
     );
