@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
+import 'package:intl/intl.dart';
 
 class UserDetails extends StatelessWidget {
   static String id = '/user_details';
@@ -7,6 +8,8 @@ class UserDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User user = ModalRoute.of(context).settings.arguments;
+    DateTime formatData = DateTime.parse(user.lastUpdate);
+    String formattedData = DateFormat('yyyy-MM-dd').format(formatData);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +29,7 @@ class UserDetails extends StatelessWidget {
                   user.userId,
                   style: TextStyle(
                     fontSize: 50.0,
-                    color: Colors.green,
+                    color: showColorByRate(user.color),
                     fontFamily: 'Lobster',
                   ),
                 ),
@@ -34,7 +37,7 @@ class UserDetails extends StatelessWidget {
               // TODO: AtCoderのサイトを表示する。
               Icon(
                 Icons.exit_to_app,
-                color: Colors.green,
+                color: showColorByRate(user.color),
               )
             ],
           ),
@@ -61,17 +64,17 @@ class UserDetails extends StatelessWidget {
                           'High',
                           style: TextStyle(
                             fontSize: 30.0,
-                            color: Colors.redAccent,
+                            color: Colors.red,
                           ),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          '803',
+                          user.highestRating.toString(),
                           style: TextStyle(
                             fontSize: 50.0,
-                            color: Colors.green,
+                            color: showColorByRate(user.color),
                           ),
                         ),
                       )
@@ -98,10 +101,10 @@ class UserDetails extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          '537',
+                          user.rating.toString(),
                           style: TextStyle(
                             fontSize: 50.0,
-                            color: Colors.brown[400],
+                            color: showColorByRate(user.color),
                           ),
                         ),
                       )
@@ -112,7 +115,7 @@ class UserDetails extends StatelessWidget {
             ],
           ),
           Text(
-            'JOIN Competitions: 25',
+            'JOIN Competitions: ${user.competitions.toString()}',
             style: TextStyle(
               fontSize: 20.0,
             ),
@@ -135,7 +138,7 @@ class UserDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      '9493',
+                      user.rank.toString(),
                       style: TextStyle(fontSize: 50.0),
                     ),
                   ],
@@ -144,9 +147,29 @@ class UserDetails extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          Text('最終更新日: 2020/2/19')
+          Text(formattedData)
         ],
       )),
     );
   }
+}
+
+Color showColorByRate(String color) {
+  switch(color) {
+    case 'red':
+      return Colors.red;
+    case 'orange':
+      return Colors.orange;
+    case 'yellow':
+      return Colors.yellow;
+    case 'blue':
+      return Colors.blue;
+    case 'cyan':
+      return Colors.cyan;
+    case 'green':
+      return Colors.green;
+    case 'brown':
+      return Colors.brown;
+  }
+  return Colors.grey;
 }

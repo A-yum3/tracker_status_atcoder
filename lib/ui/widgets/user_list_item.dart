@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
+import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
 
 class UserListItem extends StatelessWidget {
   final User user;
   final Function onTap;
+  final Function onLongTap;
 
-  UserListItem({this.user, this.onTap});
+  UserListItem({this.user, this.onTap, this.onLongTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongTap,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Column(
@@ -18,11 +21,12 @@ class UserListItem extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
                   user.userId,
                   style: TextStyle(
                     fontSize: 25.0,
+                    color: showColorByRate(user.color),
                   ),
                 ),
               ),
