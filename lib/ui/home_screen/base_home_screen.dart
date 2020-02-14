@@ -14,7 +14,7 @@ class BaseHomeScreenWidget extends StatelessWidget {
         // Shared削除の仮実装
         actions: <Widget>[
           GestureDetector(
-            child: Icon(Icons.check),
+            child: Icon(Icons.clear),
             onTap: () {
               vm.allDeleteUserId();
             },

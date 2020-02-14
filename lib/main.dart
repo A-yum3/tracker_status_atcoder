@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_screen.dart';
+import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
 
 void main() => runApp(TrackerStatusAtCoderApp());
 
@@ -10,6 +11,7 @@ class TrackerStatusAtCoderApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: HomeScreen(),
       routes: {
+        UserDetails.id : (context) => UserDetails(),
       },
     );
   }

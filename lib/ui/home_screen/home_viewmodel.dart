@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +37,19 @@ class HomeViewModel extends ChangeNotifier {
     print('deleted');
   }
 
+  void removeUserId(String user) async {
+    final prefs = await SharedPreferences.getInstance();
+    var deleteUsers =  _storageService.getUserNameList(prefs);
+    deleteUsers.remove(user);
+    await _storageService.saveUserNameList(deleteUsers, prefs);
+    getUserList();
+  }
+
+  // T: Already F: No
+  Future<bool> checkUserIsRegistered(String inputUserName) async {
+    var data = await _storageService.getUserProfile(inputUserName);
+    return data == null ? false : true;
+  }
 
 }
 

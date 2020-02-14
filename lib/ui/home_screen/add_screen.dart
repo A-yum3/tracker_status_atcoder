@@ -15,8 +15,6 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-
-
   final TextEditingController _tController = TextEditingController();
 
   @override
@@ -37,7 +35,6 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final vm = Provider.of<HomeViewModel>(context);
 
     return Material(
@@ -72,12 +69,11 @@ class _AddScreenState extends State<AddScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: TextField(
+                child: TextFormField(
                   controller: _tController,
                   decoration: InputDecoration(
                     hintText: 'Enter User Id',
                     enabledBorder: const OutlineInputBorder(
-                      // width: 0.0 produces a thin "hairline" border
                       borderSide:
                           const BorderSide(color: Colors.grey, width: 0.0),
                     ),
@@ -92,9 +88,27 @@ class _AddScreenState extends State<AddScreen> {
                     icon: Icon(Icons.input),
                     label: Text("Add"),
                     onPressed: () {
-                      vm.registerUserName(_tController.text);
-                      _tController.clear();
-                      widget._rubberAnimationController.collapse();
+                      // TODO:　ここらへんのリファクタリングと表示の修正
+                      vm
+                          .checkUserIsRegistered(_tController.text)
+                          .then((already) {
+                        if (already) {
+                          vm.registerUserName(_tController.text);
+                          _tController.clear();
+                          widget._rubberAnimationController.collapse();
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Error!!'),
+                                  content:
+                                      Text('ユーザーは登録されていません。'),
+                                );
+                              });
+                          _tController.clear();
+                        }
+                      });
                     },
                     color: Colors.blue,
                   );
