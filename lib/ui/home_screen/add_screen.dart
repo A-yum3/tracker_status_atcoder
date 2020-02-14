@@ -89,6 +89,7 @@ class _AddScreenState extends State<AddScreen> {
                     label: Text("Add"),
                     onPressed: () {
                       // TODO:　ここらへんのリファクタリングと表示の修正
+                      // TODO:　既にユーザーが登録されている場合は登録を行わない処理
                       vm
                           .checkUserIsRegistered(_tController.text)
                           .then((already) {

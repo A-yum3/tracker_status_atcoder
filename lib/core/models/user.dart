@@ -30,6 +30,12 @@ class User {
       this.lastUpdate,
       this.color});
 
+  @override
+  bool operator ==(Object other) => other is User && other.userId == userId;
+
+  @override
+  int get hashCode => userId.hashCode;
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       userId: json['user_id'],

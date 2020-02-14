@@ -32,6 +32,7 @@ class HomeViewModel extends ChangeNotifier {
   void allDeleteUserId() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
+    _users = [];
     getUserList();
     print('deleted');
   }
