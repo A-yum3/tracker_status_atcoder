@@ -11,7 +11,6 @@ class BaseHomeScreenWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tracker Status'),
-        // Shared削除の仮実装
         actions: <Widget>[
           GestureDetector(
             child: Icon(Icons.clear),

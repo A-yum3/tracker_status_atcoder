@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+
     _controller = RubberAnimationController(
       duration: Duration(milliseconds: 200),
       lowerBoundValue: AnimationControllerValue(pixel: 35.0),

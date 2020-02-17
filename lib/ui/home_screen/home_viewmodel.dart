@@ -3,16 +3,16 @@ import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class HomeViewModel extends ChangeNotifier {
-
   StorageService _storageService = serviceLocator<StorageService>();
 
   List<User> _users = [];
 
   List<User> get users => _users;
 
+
   HomeViewModel() {
+    print('called');
     getUserList();
   }
 
@@ -39,7 +39,7 @@ class HomeViewModel extends ChangeNotifier {
 
   void removeUserId(String user) async {
     final prefs = await SharedPreferences.getInstance();
-    var deleteUsers =  _storageService.getUserNameList(prefs);
+    var deleteUsers = _storageService.getUserNameList(prefs);
     deleteUsers.remove(user);
     await _storageService.saveUserNameList(deleteUsers, prefs);
     getUserList();
@@ -50,7 +50,4 @@ class HomeViewModel extends ChangeNotifier {
     var data = await _storageService.getUserProfile(inputUserName);
     return data == null ? false : true;
   }
-
 }
-
-
