@@ -25,7 +25,7 @@ class BaseHomeScreenWidget extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
-        child: BuildUsersListUi(users: vm.users),
+        child: BuildUsersListUi(usersMap: vm.users),
       ),
     );
   }

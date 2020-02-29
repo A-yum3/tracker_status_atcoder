@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tracker_status_atcoder/locator.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_screen.dart';
 import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
 
-void main() => runApp(TrackerStatusAtCoderApp());
+void main() {
+  setupServiceLocator();
+  runApp(TrackerStatusAtCoderApp());
+}
 
 class TrackerStatusAtCoderApp extends StatelessWidget {
   @override

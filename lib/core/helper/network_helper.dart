@@ -6,6 +6,7 @@ class NetworkHelper {
 
   String url;
 
+  // return Decoded Json Data
   Future getData() async {
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {

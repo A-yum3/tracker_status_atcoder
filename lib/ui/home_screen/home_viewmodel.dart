@@ -1,53 +1,49 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tracker_status_atcoder/locator.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  StorageService _storageService = serviceLocator<StorageService>();
+  StorageService _storageService = locator<StorageService>();
 
-  List<User> _users = [];
+  LinkedHashMap<String, User> users;
 
-  List<User> get users => _users;
-
-
-  HomeViewModel() {
-    print('called');
-    getUserList();
-  }
-
-  Future getUserList() async {
-    final prefs = await SharedPreferences.getInstance();
-    _users = await _storageService.updateUserStorage(prefs);
+  Future getUserMap() async {
+    users = await _storageService.getUserDataAll();
     notifyListeners();
   }
 
-  Future<void> registerUserName(String inputUserName) async {
-    final prefs = await SharedPreferences.getInstance();
-    await _storageService.addUserId(inputUserName, prefs);
-    getUserList();
-    print('register');
+  Future<bool> registerUserName(String inputUserName) async {
+    User user = await _storageService.registerUserName(inputUserName);
+    if(user != null) {
+      users[inputUserName] = user;
+      print('registered');
+      notifyListeners();
+      return true;
+    } else {
+      print('failed');
+      return false;
+    }
   }
 
   void allDeleteUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    _users = [];
-    getUserList();
+    _storageService.userDataAllDelete();
+    users = LinkedHashMap<String, User>();
     print('deleted');
   }
 
-  void removeUserId(String user) async {
-    final prefs = await SharedPreferences.getInstance();
-    var deleteUsers = _storageService.getUserNameList(prefs);
-    deleteUsers.remove(user);
-    await _storageService.saveUserNameList(deleteUsers, prefs);
-    getUserList();
+  void removeUserName(String user) async {
+    users.remove(user);
+    _storageService.userDataDelete(user);
+
+    notifyListeners();
   }
 
   // T: Already F: No
   Future<bool> checkUserIsRegistered(String inputUserName) async {
-    var data = await _storageService.getUserProfile(inputUserName);
+    var data = await _storageService.getUserData(inputUserName);
     return data == null ? false : true;
   }
 }

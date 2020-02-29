@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
@@ -6,12 +8,16 @@ import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class BuildUsersListUi extends StatelessWidget {
-  final List<User> users;
-  BuildUsersListUi({this.users});
+  final LinkedHashMap<String, User> usersMap;
+  BuildUsersListUi({this.usersMap});
 
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<HomeViewModel>(context);
+    List<User> users = [];
+    if(usersMap != null) {
+      usersMap.forEach((name, user) => users.add(user));
+    }
 
     print('List Genereted');
     return GridView.builder(
@@ -42,7 +48,7 @@ class BuildUsersListUi extends StatelessWidget {
                     FlatButton(
                       child: Text('OK'),
                       onPressed: () {
-                        vm.removeUserId(users[index].userId);
+                        vm.removeUserName(users[index].userId);
                         Navigator.pop(context);
                       },
                     )
