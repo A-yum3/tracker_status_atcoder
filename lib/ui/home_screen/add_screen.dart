@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+import 'package:tracker_status_atcoder/locator.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:rubber/rubber.dart';
 
@@ -35,7 +36,6 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<HomeViewModel>(context);
 
     return Material(
       child: Container(
@@ -81,35 +81,33 @@ class _AddScreenState extends State<AddScreen> {
                   ),
                 ),
               ),
-              Consumer<HomeViewModel>(
+              ViewModelProvider<HomeViewModel>.withConsumer(
+                reuseExisting: true,
+                viewModel: locator<HomeViewModel>(),
                 builder: (context, model, child) {
                   return RaisedButton.icon(
                     elevation: 16.0,
                     icon: Icon(Icons.input),
                     label: Text("Add"),
-                    onPressed: () {
+                    onPressed: () async {
                       // TODO:　ここらへんのリファクタリングと表示の修正
                       // TODO:　既にユーザーが登録されている場合は登録を行わない処理
-                      vm
-                          .checkUserIsRegistered(_tController.text)
-                          .then((already) {
-                        if (already) {
-                          vm.registerUserName(_tController.text);
-                          _tController.clear();
-                          widget._rubberAnimationController.collapse();
-                        } else {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Error!!'),
-                                  content:
-                                      Text('ユーザーは登録されていません。'),
-                                );
-                              });
-                          _tController.clear();
-                        }
-                      });
+                      bool success =
+                          await model.registerUserNameAndCheck(_tController.text);
+                      if (success) {
+                        _tController.clear();
+                        widget._rubberAnimationController.collapse();
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Error!!'),
+                                content: Text('ユーザーは登録されていません。'),
+                              );
+                            });
+                        _tController.clear();
+                      }
                     },
                     color: Colors.blue,
                   );

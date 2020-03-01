@@ -5,17 +5,25 @@ import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:tracker_status_atcoder/locator.dart';
 
+enum ViewState {Idle, Busy}
+
 class HomeViewModel extends ChangeNotifier {
   StorageService _storageService = locator<StorageService>();
+  ViewState state = ViewState.Idle;
+  LinkedHashMap<String, User> users = LinkedHashMap<String, User>();
 
-  LinkedHashMap<String, User> users;
+
+  void initialize() async {
+    getUserMap();
+  }
 
   Future getUserMap() async {
     users = await _storageService.getUserDataAll();
     notifyListeners();
+    state = ViewState.Busy;
   }
 
-  Future<bool> registerUserName(String inputUserName) async {
+  Future<bool> registerUserNameAndCheck(String inputUserName) async {
     User user = await _storageService.registerUserName(inputUserName);
     if(user != null) {
       users[inputUserName] = user;
@@ -31,6 +39,7 @@ class HomeViewModel extends ChangeNotifier {
   void allDeleteUserId() async {
     _storageService.userDataAllDelete();
     users = LinkedHashMap<String, User>();
+    notifyListeners();
     print('deleted');
   }
 

@@ -6,12 +6,12 @@ import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:tracker_status_atcoder/core/services/api_service.dart';
 import 'package:tracker_status_atcoder/locator.dart';
 
-//  // TODO: おぎょうぎが非常に悪いので、差分追加だけAPIを叩くようにする・・・かデータベースの使用を考慮
+// TODO: SQLiteの使用を考慮する
 
 class StorageServiceSharedPreferences extends StorageService {
   Api _api = locator<Api>();
 
-  // TODO: Shared_preferencesからユーザデータを取り出す
+  // Shared_preferencesからユーザデータを取り出す
   @override
   Future<User> getUserData(String userName) async {
     User user = await _api.getUserDataFromApi(userName);
@@ -70,6 +70,7 @@ class StorageServiceSharedPreferences extends StorageService {
     return userMap;
   }
 
+  // Shared_preferencesにリストを登録する。
   Future<void> settingNameList(List<String> list) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('my_user_name_list_key', list);

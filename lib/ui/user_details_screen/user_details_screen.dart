@@ -34,7 +34,7 @@ class UserDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Text(
                   user.userId,
                   style: TextStyle(
@@ -62,6 +62,7 @@ class UserDetails extends StatelessWidget {
               fontSize: 25.0,
             ),
           ),
+          SizedBox(height: 20),
           Row(
             children: <Widget>[
               Expanded(
@@ -81,7 +82,7 @@ class UserDetails extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                           user.highestRating.toString(),
                           style: TextStyle(
@@ -101,12 +102,12 @@ class UserDetails extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                           'Now',
                           style: TextStyle(
                             fontSize: 30.0,
-                            color: Colors.blueAccent,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -126,6 +127,7 @@ class UserDetails extends StatelessWidget {
               )
             ],
           ),
+          SizedBox(height: 40),
           Text(
             'JOIN Competitions: ${user.competitions.toString()}',
             style: TextStyle(
