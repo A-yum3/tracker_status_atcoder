@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tracker_status_atcoder/locator.dart';
+import 'package:tracker_status_atcoder/routes/router.gr.dart';
 import 'package:tracker_status_atcoder/settings.dart';
 import 'package:tracker_status_atcoder/themes.dart';
-import 'package:tracker_status_atcoder/ui/home_screen/home_screen.dart';
-import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
 
 void main() {
   setupServiceLocator();
@@ -35,10 +34,9 @@ class TrackerStatusAtCoderApp extends StatelessWidget {
       theme: Provider.of<Settings>(context).isDarkMode
           ? setDarkTheme
           : setLightTheme,
-      home: HomeScreen(),
-      routes: {
-        UserDetails.id: (context) => UserDetails(),
-      },
+      onGenerateRoute: Router.onGenerateRoute,
+      navigatorKey: Router.navigator.key,
+      initialRoute: Router.homeScreenRoute,
     );
   }
 }

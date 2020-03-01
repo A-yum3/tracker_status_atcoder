@@ -4,11 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserDetails extends StatelessWidget {
-  static String id = '/user_details';
+  final User user;
+
+  const UserDetails(this.user);
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute.of(context).settings.arguments;
     DateTime formatData = DateTime.parse(user.lastUpdate);
     String formattedData = DateFormat('yyyy-MM-dd').format(formatData);
 

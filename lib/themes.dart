@@ -13,7 +13,6 @@ ThemeData _buildLightTheme() {
     accentColor: Colors.black,
     accentIconTheme: IconThemeData(color: Colors.white),
     dividerColor: Colors.white54,
-    cardColor: Colors.grey,
     focusColor: Colors.black,
   );
 }
@@ -27,6 +26,5 @@ ThemeData _buildDarkTheme() {
     accentColor: Colors.white,
     accentIconTheme: IconThemeData(color: Colors.black),
     dividerColor: Colors.black12,
-    cardColor: Colors.grey,
   );
 }

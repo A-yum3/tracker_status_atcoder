@@ -16,7 +16,7 @@ class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel model) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Tracker Status'),
+          title: Text('AtCoder Tracker'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Provider.of<Settings>(context).isDarkMode

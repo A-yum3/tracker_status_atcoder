@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
-import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
+import 'package:tracker_status_atcoder/routes/router.gr.dart';
 import 'user_list_item.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 
@@ -26,8 +26,8 @@ class BuildUsersListUi extends ProviderWidget<HomeViewModel> {
       itemBuilder: (context, index) => UserListItem(
         user: users[index],
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(UserDetails.id, arguments: users[index]);
+          Router.navigator
+              .pushNamed(Router.userDetailsRoute, arguments: users[index]);
         },
         onLongTap: () {
           showDialog(

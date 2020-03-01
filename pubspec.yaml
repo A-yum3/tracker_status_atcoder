@@ -20,10 +20,13 @@ dependencies:
   url_launcher: ^5.4.1
   provider_architecture: ^1.0.6
   provider: ^4.0.4
+  auto_route: ^0.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  auto_route_generator: ^0.3.1
+  build_runner: ^1.7.4
 
 
 flutter:
