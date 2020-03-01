@@ -27,6 +27,10 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<bool> registerUserNameAndCheck(String inputUserName) async {
+    if(_users[inputUserName] != null) {
+      return false;
+    }
+
     User user = await _storageService.registerUserName(inputUserName);
     if(user != null) {
       _users[inputUserName] = user;

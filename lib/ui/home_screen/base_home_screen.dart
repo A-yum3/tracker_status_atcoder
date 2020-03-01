@@ -6,6 +6,8 @@ import 'home_viewmodel.dart';
 import 'package:tracker_status_atcoder/ui/widgets/build_users_list_ui.dart';
 import 'package:provider/provider.dart';
 
+// TODO: UIを変える
+
 class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
 
   void changeTheme(bool set, BuildContext context) {

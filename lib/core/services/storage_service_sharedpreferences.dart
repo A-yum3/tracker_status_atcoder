@@ -22,7 +22,6 @@ class StorageServiceSharedPreferences extends StorageService {
   // Shared_preferencesにユーザーの名前を登録
   @override
   Future<User> registerUserName(String userName) async {
-    // TODO: 重複登録できないようにする
     User user = await getUserData(userName);
     if(user == null) {
       return null;

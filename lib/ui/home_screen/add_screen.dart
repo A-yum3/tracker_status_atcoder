@@ -101,7 +101,8 @@ class _AddScreenState extends State<AddScreen> {
                             builder: (context) {
                               return AlertDialog(
                                 title: Text('Error!!'),
-                                content: Text('ユーザーは登録されていません。'),
+                                content: Text('ユーザーは登録されていないか\n'
+                                    '既に追加されています。'),
                               );
                             });
                         _tController.clear();
