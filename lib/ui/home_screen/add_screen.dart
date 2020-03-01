@@ -36,11 +36,10 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.grey[900],
+            color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(20),
               topLeft: Radius.circular(20),
@@ -56,14 +55,14 @@ class _AddScreenState extends State<AddScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.maximize,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
               Text(
-                'Add UserID',
+                'ユーザー追加',
                 style: TextStyle(
                   fontSize: 30.0,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                   decoration: TextDecoration.none,
                 ),
               ),
@@ -72,10 +71,9 @@ class _AddScreenState extends State<AddScreen> {
                 child: TextFormField(
                   controller: _tController,
                   decoration: InputDecoration(
-                    hintText: 'Enter User Id',
+                    hintText: 'ユーザー名を入力してください',
                     enabledBorder: const OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 0.0),
+                      borderSide: const BorderSide(width: 0.0),
                     ),
                     border: const OutlineInputBorder(),
                   ),
@@ -92,8 +90,8 @@ class _AddScreenState extends State<AddScreen> {
                     onPressed: () async {
                       // TODO:　ここらへんのリファクタリングと表示の修正
                       // TODO:　既にユーザーが登録されている場合は登録を行わない処理
-                      bool success =
-                          await model.registerUserNameAndCheck(_tController.text);
+                      bool success = await model
+                          .registerUserNameAndCheck(_tController.text);
                       if (success) {
                         _tController.clear();
                         widget._rubberAnimationController.collapse();
@@ -109,7 +107,7 @@ class _AddScreenState extends State<AddScreen> {
                         _tController.clear();
                       }
                     },
-                    color: Colors.blue,
+                    color: Theme.of(context).buttonColor,
                   );
                 },
               ),

@@ -10,7 +10,10 @@ enum ViewState {Idle, Busy}
 class HomeViewModel extends ChangeNotifier {
   StorageService _storageService = locator<StorageService>();
   ViewState state = ViewState.Idle;
-  LinkedHashMap<String, User> users = LinkedHashMap<String, User>();
+  // データベースを使用しない限り、Userの保存は不可能
+  LinkedHashMap<String, User> _users = LinkedHashMap<String, User>();
+
+  LinkedHashMap<String, User> get users => _users;
 
 
   void initialize() async {
@@ -18,7 +21,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future getUserMap() async {
-    users = await _storageService.getUserDataAll();
+    _users = await _storageService.getUserDataAll();
     notifyListeners();
     state = ViewState.Busy;
   }
@@ -26,7 +29,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<bool> registerUserNameAndCheck(String inputUserName) async {
     User user = await _storageService.registerUserName(inputUserName);
     if(user != null) {
-      users[inputUserName] = user;
+      _users[inputUserName] = user;
       print('registered');
       notifyListeners();
       return true;
@@ -38,13 +41,13 @@ class HomeViewModel extends ChangeNotifier {
 
   void allDeleteUserId() async {
     _storageService.userDataAllDelete();
-    users = LinkedHashMap<String, User>();
+    _users = LinkedHashMap<String, User>();
     notifyListeners();
     print('deleted');
   }
 
   void removeUserName(String user) async {
-    users.remove(user);
+    _users.remove(user);
     _storageService.userDataDelete(user);
 
     notifyListeners();

@@ -107,7 +107,7 @@ class UserDetails extends StatelessWidget {
                           'Now',
                           style: TextStyle(
                             fontSize: 30.0,
-                            color: Colors.white,
+                            color: Theme.of(context).accentColor,
                           ),
                         ),
                       ),
