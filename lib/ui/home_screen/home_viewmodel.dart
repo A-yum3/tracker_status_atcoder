@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
-import 'package:tracker_status_atcoder/locator.dart';
+import 'package:tracker_status_atcoder/utils/locator.dart';
 
 enum ViewState {Idle, Busy}
 

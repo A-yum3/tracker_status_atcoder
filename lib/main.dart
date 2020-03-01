@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tracker_status_atcoder/locator.dart';
+import 'package:tracker_status_atcoder/utils/locator.dart';
 import 'package:tracker_status_atcoder/routes/router.gr.dart';
-import 'package:tracker_status_atcoder/settings.dart';
-import 'package:tracker_status_atcoder/themes.dart';
+import 'package:tracker_status_atcoder/utils/settings.dart';
+import 'package:tracker_status_atcoder/utils/themes.dart';
 
 void main() {
   setupServiceLocator();

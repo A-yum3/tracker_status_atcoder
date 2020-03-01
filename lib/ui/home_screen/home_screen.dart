@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rubber/rubber.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/add_screen.dart';
-import '../../locator.dart';
+import '../../utils/locator.dart';
 import 'base_home_screen.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 

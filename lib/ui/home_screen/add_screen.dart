@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:tracker_status_atcoder/locator.dart';
+import 'package:tracker_status_atcoder/utils/locator.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:rubber/rubber.dart';
 

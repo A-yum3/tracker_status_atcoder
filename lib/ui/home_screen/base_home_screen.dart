@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import '../../settings.dart';
+import '../../utils/settings.dart';
 import 'home_viewmodel.dart';
 import 'package:tracker_status_atcoder/ui/widgets/build_users_list_ui.dart';
 import 'package:provider/provider.dart';

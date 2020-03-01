@@ -4,7 +4,7 @@ import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:tracker_status_atcoder/core/services/api_service.dart';
-import 'package:tracker_status_atcoder/locator.dart';
+import 'package:tracker_status_atcoder/utils/locator.dart';
 
 // TODO: SQLiteの使用を考慮する
 
