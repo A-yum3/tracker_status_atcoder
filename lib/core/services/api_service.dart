@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/helper/network_helper.dart';
 
@@ -12,18 +13,34 @@ class Api {
     NetworkHelper atCoderProfileHelper = NetworkHelper('$atCoderUrl$userName');
 
     // OK: DecodeJsonData False: Null
-    var userProblemsData = await atCoderProblemsHelper.getData();
+    var userData = await atCoderProblemsHelper.getJsonData();
     print('called problems');
-    var userAtCoderData = await atCoderProfileHelper.getData();
+    var userAtCoderData = await atCoderProfileHelper.getJsonData();
     print('called atcoder');
 
-    if (userProblemsData == null) {
+    NetworkHelper atCoderUserPageHelper =
+        NetworkHelper('https://atcoder.jp/users/$userName');
+    String data = await atCoderUserPageHelper.getData();
+//    debugPrint(data);
+
+    if (userData == null) {
       return null;
     }
 
     // JsonDataの統合
-    userProblemsData.addAll(userAtCoderData['data']);
+    userData.addAll(userAtCoderData['data']);
 
-    return User.fromJson(userProblemsData);
+    // AtCoderに設定されている画像の取得
+    Iterable<Match> matches = RegExp(r"class='avatar' src='(.*?)'").allMatches(data);
+    for (Match m in matches) {
+      print(m.group(1));
+
+      userData['image_url'] = m.group(1);
+      if(m.group(1) == '//img.atcoder.jp/assets/icon/avatar.png') {
+        userData['image_url'] = 'default';
+      }
+    }
+    print(userData);
+    return User.fromJson(userData);
   }
 }

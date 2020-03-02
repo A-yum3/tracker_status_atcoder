@@ -13,6 +13,7 @@ class User {
   int rating;
   dynamic lastUpdate;
   String color;
+  String imageUrl;
 
   User(
       {this.userId,
@@ -28,7 +29,8 @@ class User {
       this.rank,
       this.rating,
       this.lastUpdate,
-      this.color});
+      this.color,
+      this.imageUrl});
 
   @override
   bool operator ==(Object other) => other is User && other.userId == userId;
@@ -52,6 +54,7 @@ class User {
       rating: json['rating'],
       lastUpdate: json['updated'],
       color: json['user_color'],
+      imageUrl: json['image_url'],
     );
   }
 }
