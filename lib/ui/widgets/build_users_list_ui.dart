@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/routes/router.gr.dart';
-import 'user_list_item.dart';
+import 'user_list_card.dart';
 import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 
 class BuildUsersListUi extends ProviderWidget<HomeViewModel> {
@@ -23,7 +23,7 @@ class BuildUsersListUi extends ProviderWidget<HomeViewModel> {
         crossAxisCount: 2,
       ),
       itemCount: users.length,
-      itemBuilder: (context, index) => UserListItem(
+      itemBuilder: (context, index) => UserListCard(
         user: users[index],
         onTap: () {
           Router.navigator

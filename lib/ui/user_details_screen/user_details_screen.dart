@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:intl/intl.dart';
+import 'package:tracker_status_atcoder/utils/assets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserDetails extends StatelessWidget {
@@ -31,6 +32,11 @@ class UserDetails extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: <Widget>[
+          SizedBox(height: 20),
+          CircleAvatar(
+            backgroundImage: user.imageUrl == 'none' ? AssetImage(Assets.avatar) : NetworkImage(user.imageUrl),
+            radius: 72,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -60,7 +66,7 @@ class UserDetails extends StatelessWidget {
           Text(
             'Rating',
             style: TextStyle(
-              fontSize: 25.0,
+              fontSize: 32,
             ),
           ),
           SizedBox(height: 20),
@@ -75,7 +81,7 @@ class UserDetails extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          'High',
+                          'Highest',
                           style: TextStyle(
                             fontSize: 30.0,
                             color: Colors.red,
@@ -170,7 +176,7 @@ class UserDetails extends StatelessWidget {
 }
 
 Color showColorByRate(String color) {
-  switch(color) {
+  switch (color) {
     case 'red':
       return Colors.red;
     case 'orange':

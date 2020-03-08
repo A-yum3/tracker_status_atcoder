@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 // TODO: UIを変える
 
 class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
-
   void changeTheme(bool set, BuildContext context) {
     Provider.of<Settings>(context, listen: false).setDarkMode(set);
   }
@@ -19,16 +18,19 @@ class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
     return Scaffold(
         appBar: AppBar(
           title: Text('AtCoder Tracker'),
+          leading: IconButton(
+            icon: Icon(Provider.of<Settings>(context).isDarkMode
+                ? Icons.brightness_high
+                : Icons.brightness_low),
+            onPressed: () {
+              changeTheme(
+                  Provider.of<Settings>(context, listen: false).isDarkMode
+                      ? false
+                      : true,
+                  context);
+            },
+          ),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Provider.of<Settings>(context).isDarkMode
-                  ? Icons.brightness_high
-                  : Icons.brightness_low),
-              onPressed: () {
-                changeTheme(
-                    Provider.of<Settings>(context, listen: false).isDarkMode ? false : true, context);
-              },
-            ),
             IconButton(
               icon: Icon(Icons.clear),
               onPressed: () {

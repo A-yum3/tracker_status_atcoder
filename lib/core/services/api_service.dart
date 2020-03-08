@@ -37,7 +37,7 @@ class Api {
 
       userData['image_url'] = m.group(1);
       if(m.group(1) == '//img.atcoder.jp/assets/icon/avatar.png') {
-        userData['image_url'] = 'default';
+        userData['image_url'] = 'none';
       }
     }
     print(userData);
