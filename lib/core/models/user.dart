@@ -14,6 +14,7 @@ class User {
   dynamic lastUpdate;
   String color;
   String imageUrl;
+  String lastUpdateData;
 
   User(
       {this.userId,
@@ -30,13 +31,36 @@ class User {
       this.rating,
       this.lastUpdate,
       this.color,
-      this.imageUrl});
+      this.imageUrl,
+      this.lastUpdateData});
 
   @override
   bool operator ==(Object other) => other is User && other.userId == userId;
 
   @override
   int get hashCode => userId.hashCode;
+
+  Map<String, dynamic> toMap() {
+    var map = Map<String, dynamic>();
+    map['user_id'] = userId;
+    map['accepted_count'] = acceptedCount;
+    map['rated_point_sum'] = ratedPointSum;
+    map['accepted_count_rank'] = acceptedCountRank;
+    map['rated_point_sum_rank'] = ratedPointSumRank;
+    map['affiliation'] = affiliation;
+    map['birth_year'] = birthYear;
+    map['competitions'] = competitions;
+    map['formal_country_name'] = formalCountryName;
+    map['highest_rating'] = highestRating;
+    map['rank_atcoder'] = rank;
+    map['rating'] = rating;
+    map['last_update'] = lastUpdate;
+    map['color'] = color;
+    map['image_url'] = imageUrl;
+    map['last_update_data'] = lastUpdateData;
+
+    return map;
+  }
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -50,11 +74,12 @@ class User {
       competitions: json['competitions'],
       formalCountryName: json['formal_country_name'],
       highestRating: json['highest_rating'],
-      rank: json['rank'],
+      rank: json['rank'] ??= json['rank_atcoder'],
       rating: json['rating'],
-      lastUpdate: json['updated'],
-      color: json['user_color'],
+      lastUpdate: json['updated'] ??= json['last_update'],
+      color: json['user_color'] ??= json['color'],
       imageUrl: json['image_url'],
+      lastUpdateData: json['last_update_data'],
     );
   }
 }

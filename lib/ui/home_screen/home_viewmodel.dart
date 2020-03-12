@@ -5,16 +5,16 @@ import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:tracker_status_atcoder/utils/locator.dart';
 
-enum ViewState {Idle, Busy}
+enum ViewState { Idle, Busy }
 
 class HomeViewModel extends ChangeNotifier {
   StorageService _storageService = locator<StorageService>();
   ViewState state = ViewState.Idle;
   // データベースを使用しない限り、Userの保存は不可能
+  // P.S 極力コードを変えないようにこのまま
   LinkedHashMap<String, User> _users = LinkedHashMap<String, User>();
 
   LinkedHashMap<String, User> get users => _users;
-
 
   void initialize() async {
     getUserMap();
@@ -27,12 +27,18 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<bool> registerUserNameAndCheck(String inputUserName) async {
-    if(_users[inputUserName] != null) {
+    // 10件以上登録できないようにする（APIの負荷のため）
+    if(_users.length >= 10) {
+      return false;
+    }
+
+    // すでに登録されていたら登録しない
+    if (_users[inputUserName] != null) {
       return false;
     }
 
     User user = await _storageService.registerUserName(inputUserName);
-    if(user != null) {
+    if (user != null) {
       _users[inputUserName] = user;
       print('registered');
       notifyListeners();
@@ -44,7 +50,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void allDeleteUserId() async {
-    _storageService.userDataAllDelete();
+    await _storageService.userDataAllDelete();
     _users = LinkedHashMap<String, User>();
     notifyListeners();
     print('deleted');
@@ -52,9 +58,14 @@ class HomeViewModel extends ChangeNotifier {
 
   void removeUserName(String user) async {
     _users.remove(user);
-    _storageService.userDataDelete(user);
+    await _storageService.userDataDelete(user);
 
     notifyListeners();
+  }
+
+  Future updateAllData() async {
+    await _storageService.updateAllUserData();
+    await Future.delayed(Duration(milliseconds: 5000));
   }
 
   // T: Already F: No

@@ -89,7 +89,6 @@ class _AddScreenState extends State<AddScreen> {
                     label: Text("Add"),
                     onPressed: () async {
                       // TODO:　ここらへんのリファクタリングと表示の修正
-                      // TODO:　既にユーザーが登録されている場合は登録を行わない処理
                       bool success = await model
                           .registerUserNameAndCheck(_tController.text);
                       if (success) {
@@ -102,7 +101,9 @@ class _AddScreenState extends State<AddScreen> {
                               return AlertDialog(
                                 title: Text('Error!!'),
                                 content: Text('ユーザーは登録されていないか\n'
-                                    '既に追加されています。'),
+                                    '既に追加されています。\n'
+                                    '\n'
+                                    '１０件以上は登録ができません'),
                               );
                             });
                         _tController.clear();

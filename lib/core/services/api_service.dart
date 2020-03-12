@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/helper/network_helper.dart';
 
@@ -23,7 +24,7 @@ class Api {
     String data = await atCoderUserPageHelper.getData();
 //    debugPrint(data);
 
-    if (userData == null) {
+    if (data == null) {
       return null;
     }
 
@@ -40,6 +41,12 @@ class Api {
         userData['image_url'] = 'none';
       }
     }
+
+    // このデータを取得した時の時間を記録
+    var formatter = DateFormat('yyyy/MM/dd(E) HH:mm');
+    var now = formatter.format(DateTime.now());
+    userData['last_update_data'] = now;
+
     print(userData);
     return User.fromJson(userData);
   }
