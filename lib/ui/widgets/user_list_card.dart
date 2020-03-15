@@ -12,6 +12,8 @@ class UserListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size _screenSize = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongTap,
@@ -32,14 +34,14 @@ class UserListCard extends StatelessWidget {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
                           child: user.imageUrl == 'none'
-                              ? Image.asset(Assets.avatar)
+                              ? Image.asset(Assets.avatar, fit: BoxFit.cover)
                               : Image.network(user.imageUrl,
                                   fit: BoxFit.cover)),
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
-                        radius: 28,
+                        radius: (_screenSize.width + _screenSize.height) * (1/40),
                         backgroundColor: Theme.of(context).backgroundColor,
                         child: Text(
                           user.rating.toString(),
@@ -65,25 +67,3 @@ class UserListCard extends StatelessWidget {
     );
   }
 }
-
-//            SizedBox(height: 10),
-//            Padding(
-//              padding: const EdgeInsets.only(top: 20.0),
-//              child:
-//            ),
-//            Row(
-//              mainAxisAlignment: MainAxisAlignment.center,
-//              children: <Widget>[
-//                Text(
-//                  'Raiting: ',
-//                  style: Theme.of(context).textTheme.subhead,
-//                ),
-//                Text(
-//                  user.rating.toString(),
-//                  style: Theme.of(context)
-//                      .textTheme
-//                      .headline
-//                      .copyWith(color: showColorByRate(user.color)),
-//                ),
-//              ],
-//            ),

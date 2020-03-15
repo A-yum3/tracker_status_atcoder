@@ -15,6 +15,7 @@ class User {
   String color;
   String imageUrl;
   String lastUpdateData;
+  int wins;
 
   User(
       {this.userId,
@@ -32,7 +33,8 @@ class User {
       this.lastUpdate,
       this.color,
       this.imageUrl,
-      this.lastUpdateData});
+      this.lastUpdateData,
+      this.wins});
 
   @override
   bool operator ==(Object other) => other is User && other.userId == userId;
@@ -58,6 +60,7 @@ class User {
     map['color'] = color;
     map['image_url'] = imageUrl;
     map['last_update_data'] = lastUpdateData;
+    map['wins'] = wins;
 
     return map;
   }
@@ -80,6 +83,7 @@ class User {
       color: json['user_color'] ??= json['color'],
       imageUrl: json['image_url'],
       lastUpdateData: json['last_update_data'],
+      wins: json['wins'],
     );
   }
 }

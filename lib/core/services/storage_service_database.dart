@@ -82,6 +82,7 @@ class DatabaseHelper {
   static final columnColor = 'color';
   static final columnImageUrl = 'image_url';
   static final columnLastUpdateData = 'last_update_data';
+  static final columnWins = 'wins';
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -119,7 +120,8 @@ class DatabaseHelper {
             $columnLastUpdate NOT NULL,
             $columnColor TEXT NOT NULL,
             $columnImageUrl TEXT NOT NULL,
-            $columnLastUpdateData TEXT NOT NULL
+            $columnLastUpdateData TEXT NOT NULL,
+            $columnWins INTEFGER NOT NULL
           );
           ''');
   }
@@ -152,6 +154,7 @@ class DatabaseHelper {
           columnColor,
           columnImageUrl,
           columnLastUpdateData,
+          columnWins
         ],
         where: '$columnUserId = ?',
         whereArgs: [userId]);
