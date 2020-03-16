@@ -9,7 +9,6 @@ import 'api_service.dart';
 import 'storage_service.dart';
 
 class StorageServiceDatabase extends StorageService {
-  // TODO: 実際にデータベースを使用して構築する。
   final _dbHelper = DatabaseHelper.instance;
   Api _api = locator<Api>();
 
@@ -69,7 +68,7 @@ class DatabaseHelper {
   static final columnUserId = 'user_id';
   static final columnAcceptedCount = 'accepted_count';
   static final columnRatedPointSum = 'rated_point_sum';
-  static final columnAcceptedCountRank = 'accepted_count_Rank';
+  static final columnAcceptedCountRank = 'accepted_count_rank';
   static final columnRatedPointSumRank = 'rated_point_sum_rank';
   static final columnAffiliation = 'affiliation';
   static final columnBirthYear = 'birth_year';

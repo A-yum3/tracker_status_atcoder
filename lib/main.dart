@@ -34,6 +34,7 @@ class TrackerStatusAtCoderApp extends StatelessWidget {
       theme: Provider.of<Settings>(context).isDarkMode
           ? setDarkTheme
           : setLightTheme,
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: Router.onGenerateRoute,
       navigatorKey: Router.navigator.key,
       initialRoute: Router.homeScreenRoute,

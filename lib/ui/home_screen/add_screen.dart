@@ -17,7 +17,6 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   final TextEditingController _tController = TextEditingController();
-  bool _saving = false;
 
   @override
   void initState() {

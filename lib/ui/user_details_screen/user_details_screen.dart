@@ -70,7 +70,7 @@ class _UserDetailsState extends State<UserDetails> {
                         children: <Widget>[
                           // TODO: リファクタリング
                           SizedBox(
-                            height: _screenSize.height * (1 / 9),
+                            height: _screenSize.height * (1 / 10),
                           ),
                           Text(
                             widget.user.userId,
@@ -243,7 +243,7 @@ class _UserDetailsState extends State<UserDetails> {
                             ),
                             Wrap(
                               spacing: 40,
-                              runSpacing: 36,
+                              runSpacing: 20,
                               children: <Widget>[
                                 ProfileItem(
                                   detail: widget.user.acceptedCount.toString(),
@@ -279,7 +279,7 @@ class _UserDetailsState extends State<UserDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 16),
                             Text(
                               'Road to ...',
                               style: TextStyle(fontSize: 24),

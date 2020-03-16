@@ -1,7 +1,7 @@
 name: tracker_status_atcoder
 description: Fetch Some ProfileData by AtCoder
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
