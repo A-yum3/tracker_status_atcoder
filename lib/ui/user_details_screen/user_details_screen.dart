@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:intl/intl.dart';
+import 'package:tracker_status_atcoder/ui/widgets/profile_item.dart';
+import 'package:tracker_status_atcoder/ui/widgets/template_indicator.dart';
 import 'package:tracker_status_atcoder/utils/assets.dart';
+import 'package:tracker_status_atcoder/utils/show_color_by_rate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,8 +30,6 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
-    print(_screenSize);
-
     DateTime formatData = DateTime.parse(widget.user.lastUpdate);
     String formattedData = DateFormat('yyyy-MM-dd').format(formatData);
 
@@ -354,97 +354,6 @@ class _UserDetailsState extends State<UserDetails> {
           ),
         ],
       ),
-    );
-  }
-}
-
-Color showColorByRate(String color) {
-  switch (color) {
-    case 'red':
-      return Colors.red;
-    case 'orange':
-      return Colors.orange;
-    case 'yellow':
-      return Colors.yellow;
-    case 'blue':
-      return Colors.blue;
-    case 'cyan':
-      return Colors.cyan;
-    case 'green':
-      return Colors.green;
-    case 'brown':
-      return Colors.brown;
-  }
-  return Colors.grey;
-}
-
-class TemplateIndicator extends StatelessWidget {
-  final User user;
-  final int limit;
-  final String info;
-  final Color color;
-
-  TemplateIndicator(
-      {@required this.user,
-      @required this.info,
-      @required this.limit,
-      this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    double percent = user.ratedPointSum / limit;
-    String perText = ((percent * 1000).round() / 10).toString();
-    if (percent > 1.0) percent = 1.0;
-
-    return Padding(
-      padding: EdgeInsets.all(15.0),
-      child: CircularPercentIndicator(
-        radius: 60.0,
-        lineWidth: 5.0,
-        percent: percent,
-        center: Text('$perText%'),
-        progressColor: color,
-        footer: Text(info),
-      ),
-    );
-  }
-}
-
-class ProfileItem extends StatelessWidget {
-  final detail;
-  final Size size;
-  final int fontSizeDenom;
-  final Color titleColor;
-  final Color detailColor;
-  final String title;
-
-  ProfileItem(
-      {@required this.detail,
-      @required this.size,
-      @required this.fontSizeDenom,
-      @required this.titleColor,
-      @required this.detailColor,
-      @required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(
-            color: titleColor,
-          ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          detail,
-          style: TextStyle(
-              fontSize: (size.width + size.height) * (1 / fontSizeDenom),
-              color: detailColor),
-        )
-      ],
     );
   }
 }

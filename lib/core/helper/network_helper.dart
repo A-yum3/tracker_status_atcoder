@@ -9,14 +9,14 @@ class NetworkHelper {
   // return Decoded Json Data
   Future getJsonData() async {
 
-    var data = await getData();
+    final data = await getData();
     return jsonDecode(data);
   }
 
-  Future getData() async {
-    http.Response response = await http.get(url);
+  Future<String> getData() async {
+    final response = await http.get(url);
     if (response.statusCode == 200) {
-      String data = response.body;
+      final data = response.body;
       return data;
     } else {
       print(response.statusCode);

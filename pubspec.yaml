@@ -30,6 +30,7 @@ dependencies:
   font_awesome_flutter: ^8.7.0
   percent_indicator: ^2.1.1+1
   flutter_rounded_progress_bar: 0.1.1
+  pedantic: ^1.8.0
 
 dev_dependencies:
   flutter_test:

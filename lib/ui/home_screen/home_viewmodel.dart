@@ -5,25 +5,23 @@ import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/core/services/storage_service.dart';
 import 'package:tracker_status_atcoder/utils/locator.dart';
 
-enum ViewState { Idle, Busy }
+enum ViewState { idle, busy }
 
 class HomeViewModel extends ChangeNotifier {
-  StorageService _storageService = locator<StorageService>();
-  ViewState state = ViewState.Idle;
-  // データベースを使用しない限り、Userの保存は不可能
-  // P.S 極力コードを変えないようにこのまま
+  final StorageService _storageService = locator<StorageService>();
+  ViewState state = ViewState.idle;
   LinkedHashMap<String, User> _users = LinkedHashMap<String, User>();
 
   LinkedHashMap<String, User> get users => _users;
 
-  void initialize() async {
+  void initialize() {
     getUserMap();
   }
 
   Future getUserMap() async {
     _users = await _storageService.getUserDataAll();
     notifyListeners();
-    state = ViewState.Busy;
+    state = ViewState.busy;
   }
 
   Future<bool> registerUserNameAndCheck(String inputUserName) async {
@@ -37,7 +35,7 @@ class HomeViewModel extends ChangeNotifier {
       return false;
     }
 
-    User user = await _storageService.registerUserName(inputUserName);
+    final user = await _storageService.registerUserName(inputUserName);
     if (user != null) {
       _users[inputUserName] = user;
       print('registered');
@@ -49,14 +47,15 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  void allDeleteUserId() async {
+  Future<void> allDeleteUserId() async {
     await _storageService.userDataAllDelete();
+    // ignore: prefer_collection_literals
     _users = LinkedHashMap<String, User>();
     notifyListeners();
     print('deleted');
   }
 
-  void removeUserName(String user) async {
+  Future<void> removeUserName(String user) async {
     _users.remove(user);
     await _storageService.userDataDelete(user);
 
@@ -65,12 +64,13 @@ class HomeViewModel extends ChangeNotifier {
 
   Future updateAllData() async {
     await _storageService.updateAllUserData();
-    await Future.delayed(Duration(milliseconds: 5000));
+    await Future<Duration>.delayed(const Duration(milliseconds: 5000));
   }
 
   // T: Already F: No
   Future<bool> checkUserIsRegistered(String inputUserName) async {
-    var data = await _storageService.getUserData(inputUserName);
+    final data = await _storageService.getUserData(inputUserName);
+    // ignore: avoid_bool_literals_in_conditional_expressions
     return data == null ? false : true;
   }
 }

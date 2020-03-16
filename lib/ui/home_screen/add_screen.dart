@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:tracker_status_atcoder/utils/locator.dart';
@@ -5,11 +6,10 @@ import 'package:tracker_status_atcoder/ui/home_screen/home_viewmodel.dart';
 import 'package:rubber/rubber.dart';
 
 class AddScreen extends StatefulWidget {
+  const AddScreen(this._rubberAnimationController);
   static const String id = '/add_screen';
 
   final RubberAnimationController _rubberAnimationController;
-
-  AddScreen(this._rubberAnimationController);
 
   @override
   _AddScreenState createState() => _AddScreenState();
@@ -17,11 +17,11 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   final TextEditingController _tController = TextEditingController();
+  bool _saving = false;
 
   @override
   void initState() {
     super.initState();
-    _tController.addListener(_printLatestValue);
   }
 
   @override
@@ -30,29 +30,25 @@ class _AddScreenState extends State<AddScreen> {
     super.dispose();
   }
 
-  _printLatestValue() {
-    print("input: ${_tController.text}");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
         decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(20),
               topLeft: Radius.circular(20),
             )),
         height: 800,
         width: double.infinity,
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Icon(
                   Icons.maximize,
                   color: Theme.of(context).accentColor,
@@ -61,21 +57,21 @@ class _AddScreenState extends State<AddScreen> {
               Text(
                 'ユーザー追加',
                 style: TextStyle(
-                  fontSize: 30.0,
+                  fontSize: 32,
                   color: Theme.of(context).accentColor,
                   decoration: TextDecoration.none,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20),
                 child: TextFormField(
                   controller: _tController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'ユーザー名を入力してください',
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(width: 0.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0),
                     ),
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                   ),
                 ),
               ),
@@ -84,28 +80,27 @@ class _AddScreenState extends State<AddScreen> {
                 viewModel: locator<HomeViewModel>(),
                 builder: (context, model, child) {
                   return RaisedButton.icon(
-                    elevation: 16.0,
+                    elevation: 16,
                     icon: Icon(Icons.input),
-                    label: Text("Add"),
+                    label: const Text('Add'),
                     onPressed: () async {
-                      // TODO:　ここらへんのリファクタリングと表示の修正
-                      bool success = await model
+                      final success = await model
                           .registerUserNameAndCheck(_tController.text);
                       if (success) {
                         _tController.clear();
                         widget._rubberAnimationController.collapse();
                       } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Error!!'),
-                                content: Text('ユーザーは登録されていないか\n'
-                                    '既に追加されています。\n'
-                                    '\n'
-                                    '１０件以上は登録ができません'),
-                              );
-                            });
+                        // TODO: エラー内容によって表示を変える
+                        await AwesomeDialog(
+                          context: context,
+                          animType: AnimType.BOTTOMSLIDE,
+                          tittle: 'Error!',
+                          btnOkOnPress: () {},
+                          dialogType: DialogType.ERROR,
+                          desc: 'ユーザーは登録されていないか\n'
+                              '既に追加されています。\n'
+                              '１０件以上は登録ができません。',
+                        ).show();
                         _tController.clear();
                       }
                     },

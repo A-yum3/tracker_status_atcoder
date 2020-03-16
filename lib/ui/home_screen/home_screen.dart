@@ -4,7 +4,6 @@ import 'package:tracker_status_atcoder/ui/home_screen/add_screen.dart';
 import '../../utils/locator.dart';
 import 'base_home_screen.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-
 import 'home_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {

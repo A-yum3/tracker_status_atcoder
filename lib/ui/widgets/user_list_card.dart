@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tracker_status_atcoder/core/models/user.dart';
 import 'package:tracker_status_atcoder/ui/user_details_screen/user_details_screen.dart';
 import 'package:tracker_status_atcoder/utils/assets.dart';
+import 'package:tracker_status_atcoder/utils/show_color_by_rate.dart';
 
 class UserListCard extends StatelessWidget {
   final User user;
