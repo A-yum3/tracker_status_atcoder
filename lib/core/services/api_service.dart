@@ -24,7 +24,7 @@ class Api {
     String data = await atCoderUserPageHelper.getData();
 //    debugPrint(data);
 
-    if (data == null) {
+    if (data == null || userData['accepted_count'] == 0) {
       return null;
     }
 

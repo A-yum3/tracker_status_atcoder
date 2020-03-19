@@ -3,12 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:rubber/rubber.dart';
+import 'package:tracker_status_atcoder/ui/widgets/a_little_above_floating_action_button.dart';
 import 'package:tracker_status_atcoder/ui/widgets/build_users_list_ui.dart';
 import '../../utils/settings.dart';
 import 'home_viewmodel.dart';
 
 class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
-  // ignore: avoid_positional_boolean_parameters
+  final RubberAnimationController _rubberAnimationController;
+
+  BaseHomeScreenWidget(
+      this._rubberAnimationController); // ignore: avoid_positional_boolean_parameters
   void changeTheme(bool set, BuildContext context) {
     Provider.of<Settings>(context, listen: false).setDarkMode(set);
   }
@@ -16,6 +21,14 @@ class BaseHomeScreenWidget extends ProviderWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _rubberAnimationController.expand();
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).accentColor,
+      ),
+      floatingActionButtonLocation: ALittleAboveEndFloatingActionButtonLocation(),
       appBar: AppBar(
         title: const Text('AtCoder Tracker'),
         leading: IconButton(

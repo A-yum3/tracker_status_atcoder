@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen>
         reuseExisting: true,
         viewModel: locator<HomeViewModel>(),
         builder: (context, model, _) => RubberBottomSheet(
-              lowerLayer: BaseHomeScreenWidget(),
+              lowerLayer: BaseHomeScreenWidget(_controller),
               upperLayer: AddScreen(_controller),
               animationController: _controller,
             ));
