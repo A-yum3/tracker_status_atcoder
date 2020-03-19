@@ -42,14 +42,15 @@ class UserListCard extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
-                        radius: (_screenSize.width + _screenSize.height) * (1/40),
+                        radius:
+                            (_screenSize.width + _screenSize.height) * (1 / 40),
                         backgroundColor: Theme.of(context).backgroundColor,
                         child: Text(
                           user.rating.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline
-                              .copyWith(color: showColorByRate(user.color)),
+                          style: Theme.of(context).textTheme.headline.copyWith(
+                                color: showColorByRate(user.color),
+                            fontSize: (_screenSize.width + _screenSize.height) * (1 / 45),
+                              ),
                         ),
                       ),
                     ),
